@@ -19,11 +19,11 @@ if(isset($_POST['username']) && isset($_POST['password']))
         $count = $reponse['count(*)'];
         if($count==1) // nom d'utilisateur et mot de passe correctes
         {
-           $_SESSION['username'] = $username;
+            $_SESSION['username'] = $username;
             $_SESSION['nom'] = $reponse['nom'];
             $_SESSION['prenom'] = $reponse['prenom'];
-            $_SESSION['profil'] = $reponse['profil'];
-           header('Location: principale.php');
+            $_SESSION['profil'] = (int)$reponse['profil'];
+           header("Location: router.php?direction=admin");
         }
         else
         {

@@ -1,6 +1,6 @@
 <?php
+    require('isAdmin.php');
     include('navbar.php');
-    session_start();
     echo $_SESSION['nom'];
     echo '</br>';
     echo $_SESSION['prenom'];

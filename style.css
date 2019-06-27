@@ -1,6 +1,3 @@
-body{
-    background: #67BE4B;
-}
 #container{
     width:400px;
     margin:0 auto;
@@ -44,4 +41,7 @@ input[type=submit]:hover {
     background-color: white;
     color: #53af57;
     border: 1px solid #53af57;
+}
+.active {
+  background-color: #4CAF50;
 }
