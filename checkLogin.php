@@ -23,7 +23,13 @@ if(isset($_POST['username']) && isset($_POST['password']))
             $_SESSION['nom'] = $reponse['nom'];
             $_SESSION['prenom'] = $reponse['prenom'];
             $_SESSION['profil'] = (int)$reponse['profil'];
-           header("Location: router.php?direction=admin");
+            if($_SESSION['profil'] == 42 || $_SESSION['profil']==12){
+                header("Location: router.php?direction=admin");
+            }
+            else{
+                header("Location: router.php?direction=dashboard");
+                echo '<script> console.log("ici") </script>';
+            }
         }
         else
         {

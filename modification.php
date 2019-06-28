@@ -45,16 +45,17 @@
 <body>
     <?php
     include('navbar.php');
+    $_SESSION['modifyID'] = $idcomptes;
     ?>
     <div id="container">
         <!-- zone de connexion -->
 
-        <form action="creation.php" method="POST">
+        <form action="modify.php" method="POST">
             <h2>Création d'un compte utilisateur</h2>
 
             <label><b>Nom d'utilisateur</b></label>
             <?php
-            echo '<input type="text" placeholder="Entrer le nom d\'utilisateur" name="username" value="' .$idcomptes .'" required>';
+            echo '<input type="text" placeholder="Entrer le nom d\'utilisateur" name="username" value="' .$idcomptes .'" required disabled>';
             
             echo '<label><b>Nom</b></label>';
             
@@ -63,6 +64,57 @@
             echo '<label><b>Prénom</b></label>';
             
             echo '<input type="text" placeholder="Entrer le prenom" value="'. $prenom. '"name="prenom" required>';
+            
+            echo '<label><b>Mot de passe</b></label>';
+            
+            echo '<input type="password" placeholder="Nouveau mot de passe (laisser vide pour ne pas changer)" name="password1" id="password1" required>';
+            
+            ?>
+            <p style="color:red"; id="taille"></p>
+            <script>
+                password1.oninput = function() {
+                    if (password1.value.length>0 && password1.value.length < 5){
+                        taille.innerHTML = "Taille du mot de passe insuffisante (5 charatères minimum)";
+                        document.getElementById("submit").disabled = true;
+                    }
+                    else{
+                         taille.innerHTML = "";
+                        document.getElementById("submit").disabled = false;
+                    }
+                    if (password1.value !== password2.value){
+                        confirmation.innerHTML = "Mots de passe différents, merci de vérifier vos saisies";
+                        document.getElementById("submit").disabled = true;
+                    }
+                    else{
+                         confirmation.innerHTML = "";
+                        document.getElementById("submit").disabled = false;
+                    }
+                };
+</script>
+             
+            
+            <?php
+            
+            echo '<label><b>Confirmation mot de passe</b></label>';
+            
+            echo '<input type="password" placeholder="Confirmation mot de passe" "name="password2" id="password2" required>';
+            ?>
+            <p style="color:red"; id="confirmation"></p>
+             <script>
+                password2.oninput = function() {
+                    if (password1.value !== password2.value){
+                        confirmation.innerHTML = "Mots de passe différents, merci de vérifier vos saisies";
+                        document.getElementById("submit").disabled = true;
+                    }
+                    else{
+                         confirmation.innerHTML = "";
+                        document.getElementById("submit").disabled = false;
+                    }
+                };
+</script> 
+            
+            <?php
+            
 
             echo '<label><b>Type de compte</b></label>';
             echo '<div>

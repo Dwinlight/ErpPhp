@@ -6,5 +6,6 @@
     echo $_SESSION['prenom'];
     echo '</br>';
     echo $_SESSION['profil'];
+    include('get-message.php');
     
 

@@ -14,8 +14,13 @@
     {
         
         switch ($_GET['direction']) {
+            case 'dashboard':
+                if($_SESSION['profil'] == 1 ){
+                    header('Location: dashboard.php');
+                }
+                break;
             case 'admin':
-                if($_SESSION['profil'] == 42){
+                if($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12){
                     header('Location: administrator.php');
                 }
                 else{
@@ -24,7 +29,7 @@
                 }
                 break;
             case 'creation':
-                if($_SESSION['profil'] == 42){
+                if($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12){
                     if(isset($_GET['err']) && $_GET['err'] == 1){
                         //echo 'okok';
                         header('Location: creation-de-compte.php?err=1');
@@ -39,7 +44,7 @@
                 }
                 break;
             case 'comptes':
-                if($_SESSION['profil'] == 42){
+                if($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12){
                     header('Location: liste-compte.php');
                 }
                 else{
@@ -48,14 +53,25 @@
                 }
                 break;
             case 'modification':
-                if($_SESSION['profil'] == 42 && isset($_GET['id'])){
-                    header('Location: modification.php?id=' . $_GET['id']);
+                if(($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12)  && isset($_GET['id'])){
+                    if(isset($_GET['err'])) {
+                        header('Location: modification.php?id=' . $_GET['id'] . '&err=' .$_GET['err'] );   
+                    }
+                    else{
+                        header('Location: modification.php?id=' . $_GET['id']);
+                    }
                 }
                 else{
                     session_destroy();
                     header('Location: connexion.php');
                 }
                 break;
+            case 'message':
+                if($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12 ){
+                    header('Location: message.php');
+                }
+                break;
+            
             default:
                 session_destroy();
                 header('Location: connexion.php');

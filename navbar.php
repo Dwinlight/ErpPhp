@@ -46,13 +46,19 @@
         <li><a href="#contact">Contact</a></li>
         <?php
         
-        if ($_SESSION['profil'] == 42){
+        if ($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12){
+            echo '<li><a href="router.php?direction=message">Poster un message</a></li>';
+        }
+        ?>
+        <?php
+        
+        if ($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12){
             echo '<li><a href="router.php?direction=creation">Création</a></li>';
         }
         ?>
         <?php
         
-        if ($_SESSION['profil'] == 42){
+        if ($_SESSION['profil'] == 42  || $_SESSION['profil'] == 12){
             echo '<li><a href="router.php?direction=comptes">Liste des comptes</a></li>';
         }
         ?>
