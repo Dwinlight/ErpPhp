@@ -50,6 +50,12 @@
             echo '<li><a href="router.php?direction=creation">Création</a></li>';
         }
         ?>
+        <?php
+        
+        if ($_SESSION['profil'] == 42){
+            echo '<li><a href="router.php?direction=comptes">Liste des comptes</a></li>';
+        }
+        ?>
         <li style="float:right"><a class="active" href="router.php?deconnexion=true">Déconnexion</a></li>
     </ul>
 

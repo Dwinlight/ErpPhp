@@ -8,18 +8,30 @@ require('isAdmin.php');
         $password = $password . $characters[rand(0, strlen($characters))];
     }
     
-
- echo ' <body onload="alert(\' '. $password.' \');"> </body>';
-
-// set parameters and execute
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
 $idcomptes = $_POST['username'];
+
+
+$sql = "SELECT idcomptes FROM comptes WHERE idcomptes='" . $idcomptes . "'";
+
+$result = $db->query($sql);
+
+
+if ($result->num_rows> 0){
+      
+    header('Location: router.php?direction=creation&err=1');
+}
+else{
+ 
+
+// set parameters and execute
+
 if ($_POST['profil'] == 'utilisateur'){
     $profil = 1;
 }
 else{
-   $profil = 42; 
+   $profil = 12; 
 }
 $pass = hash('sha384',$password);
 $stmt = $db->prepare("INSERT INTO comptes (idcomptes, nom, prenom, profil, password) VALUES (?, ?, ?, ?, ?)");
@@ -29,5 +41,9 @@ $stmt->bind_param("sssis",$idcomptes, $nom, $prenom, $profil, $pass);
 $stmt->execute();
 $stmt->close();
 $db->close();
-header("Location: router.php?direction=admin");
+//sleep(10);
+echo '<script type="text/javascript">window.alert("Veuillez noter le mot de passe temporaire:'.$password.'");</script>';
+//header("Location: router.php?direction=admin");
+echo '<script type="text/javascript">document.location.href="router.php?direction=admin"</script>';
 
+}
