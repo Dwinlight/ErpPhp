@@ -22,7 +22,7 @@ if(!isset($_SESSION['profil'])){
             header('Location: connexion.php');
         }
 require('dbConnection.php');
-$sql = "SELECT * FROM message ORDER BY number";
+$sql = "SELECT * FROM message ORDER BY number DESC";
 $result = $db->query($sql);
 
 
