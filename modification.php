@@ -1,9 +1,8 @@
 <?php
     session_start();
-    if(!isset($_SESSION['profil']) || $_SESSION['profil'] != 42){
-            session_destroy();
-            header('Location: connexion.php');
-        }
+
+    
+    
     require('dbConnection.php');
     $sql = "SELECT nom, prenom, idcomptes, profil FROM comptes WHERE idcomptes ='" . $_GET['id'] . "'";
     $result = $db->query($sql);
@@ -21,10 +20,19 @@
         }
   
     }   
+    if ($_SESSION['username'] !=$_GET['id'] ){
+    if(!isset($_SESSION['profil']) || $_SESSION['profil'] != 42){
+        echo $_SESSION['username'];
+        echo $_GET['id'];
+            //session_destroy();
+            //header('Location: connexion.php');
+        }    
     if($profil>$_SESSION['profil']){
             session_destroy();
             header('Location: connexion.php');
         }
+    }
+
     if($profil == 1){
         $admin = '';
         $utilisateur = 'checked';
@@ -51,7 +59,7 @@
         <!-- zone de connexion -->
 
         <form action="modify.php" method="POST">
-            <h2>Création d'un compte utilisateur</h2>
+            <?php echo '<h2>Modification du compte: '.$idcomptes. '</h2>'; ?>
 
             <label><b>Nom d'utilisateur</b></label>
             <?php
@@ -67,10 +75,10 @@
             
             echo '<label><b>Mot de passe</b></label>';
             
-            echo '<input type="password" placeholder="Nouveau mot de passe (laisser vide pour ne pas changer)" name="password1" id="password1" required>';
+            echo '<input type="password" placeholder="Nouveau mot de passe (laisser vide pour ne pas changer)" name="password1" id="password1" >';
             
             ?>
-            <p style="color:red"; id="taille"></p>
+            <p style="color:red" ; id="taille"></p>
             <script>
                 password1.oninput = function() {
                     if (password1.value.length>0 && password1.value.length < 5){
@@ -91,16 +99,16 @@
                     }
                 };
 </script>
-             
-            
+
+
             <?php
             
             echo '<label><b>Confirmation mot de passe</b></label>';
             
-            echo '<input type="password" placeholder="Confirmation mot de passe" "name="password2" id="password2" required>';
+            echo '<input type="password" placeholder="Confirmation mot de passe" "name="password2" id="password2" >';
             ?>
-            <p style="color:red"; id="confirmation"></p>
-             <script>
+            <p style="color:red" ; id="confirmation"></p>
+            <script>
                 password2.oninput = function() {
                     if (password1.value !== password2.value){
                         confirmation.innerHTML = "Mots de passe différents, merci de vérifier vos saisies";
@@ -111,16 +119,22 @@
                         document.getElementById("submit").disabled = false;
                     }
                 };
-</script> 
-            
+</script>
+
             <?php
             
-
-            echo '<label><b>Type de compte</b></label>';
-            echo '<div>
-                <input type="radio" name="profil" value="utilisateur"'. $utilisateur.'>Utilisateur
-                <input type="radio" name="profil" value="administrateur"' . $admin. '>Administrateur<br>
-            </div>';
+            if($idcomptes !=$_SESSION['username']){
+                echo '<label><b>Type de compte</b></label>';
+                echo '<div>
+                    <input type="radio" name="profil" value="utilisateur"'. $utilisateur.'>Utilisateur
+                    <input type="radio" name="profil" value="administrateur"' . $admin. '>Administrateur<br>
+                </div>';
+            }
+            else{echo '<label><b>Type de compte</b></label>';
+                echo '<div>
+                    <input type="radio" name="profil" value="utilisateur"'. $utilisateur.' disabled>Utilisateur
+                    <input type="radio" name="profil" value="administrateur"' . $admin. ' disabled>Administrateur<br>
+                </div>';}
             ?>
             <input type="submit" id='submit' value='Création'>;
 

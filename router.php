@@ -53,7 +53,7 @@
                 }
                 break;
             case 'modification':
-                if(($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12)  && isset($_GET['id'])){
+                if(isset($_SESSION['profil'])  && isset($_GET['id'])){
                     if(isset($_GET['err'])) {
                         header('Location: modification.php?id=' . $_GET['id'] . '&err=' .$_GET['err'] );   
                     }
