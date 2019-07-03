@@ -1,25 +1,6 @@
 <?php
-    session_start();
-
-    
-    
-    require('dbConnection.php');
-    $sql = "SELECT nom, prenom, idcomptes, profil FROM comptes WHERE idcomptes ='" . $_GET['id'] . "'";
-    $result = $db->query($sql);
-
-    if ($result->num_rows > 0) {
-    // output data of each row
-    
-        while($row = $result->fetch_assoc()) {
-        
-            $idcomptes = $row["idcomptes"];
-            $nom = $row["nom"];
-            $prenom = $row["prenom"];
-            $profil = $row["profil"];
-             
-        }
-  
-    }   
+    require('../controller/isAllowed.php');
+    require('../model/get-user.php'); 
     if ($_SESSION['username'] !=$_GET['id'] ){
     if(!isset($_SESSION['profil']) || $_SESSION['profil'] != 42){
         echo $_SESSION['username'];
@@ -58,7 +39,7 @@
     <div id="container">
         <!-- zone de connexion -->
 
-        <form action="modify.php" method="POST">
+        <form action="../model/modify.php" method="POST">
             <?php echo '<h2>Modification du compte: '.$idcomptes. '</h2>'; ?>
 
             <label><b>Nom d'utilisateur</b></label>
@@ -72,13 +53,13 @@
             echo '<label><b>Prénom</b></label>';
             
             echo '<input type="text" placeholder="Entrer le prenom" value="'. $prenom. '"name="prenom" required>';
+            //echo '<input style="display:none" type="password" name="fakepasswordremembered"/>';
+            echo '<label><b>Mot de passe (laisser vide pour ne pas changer)</b></label>';
+             ?>
+            <input type="password" placeholder="Nouveau mot de passe" name="password1" id="password1" autocomplete="off" >
             
-            echo '<label><b>Mot de passe</b></label>';
-            
-            echo '<input type="password" placeholder="Nouveau mot de passe (laisser vide pour ne pas changer)" name="password1" id="password1" >';
-            
-            ?>
-            <p style="color:red" ; id="taille"></p>
+          
+            <p style="color:red"  id="taille"></p>
             <script>
                 password1.oninput = function() {
                     if (password1.value.length>0 && password1.value.length < 5){
@@ -105,9 +86,9 @@
             
             echo '<label><b>Confirmation mot de passe</b></label>';
             
-            echo '<input type="password" placeholder="Confirmation mot de passe" "name="password2" id="password2" >';
+            echo '<input type="password" placeholder="Confirmation mot de passe" "name="password2" id="password2"  autocomplete="off" >';
             ?>
-            <p style="color:red" ; id="confirmation"></p>
+            <p style="color:red" id="confirmation"></p>
             <script>
                 password2.oninput = function() {
                     if (password1.value !== password2.value){

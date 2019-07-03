@@ -1,7 +1,7 @@
 <?php 
-
+require('../controller/isAllowed.php');
+include('trace.php');
 require('dbConnection.php');
-require('isAdmin.php');
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $password = '';
     for ($i = 0; $i < 5; $i++) {
@@ -20,7 +20,7 @@ $result = $db->query($sql);
 
 if ($result->num_rows> 0){
       
-    header('Location: router.php?direction=creation&err=1');
+    header('Location: ../controller/router.php?direction=creation&err=1');
 }
 else{
  
@@ -36,14 +36,13 @@ else{
 $pass = hash('sha384',$password);
 $stmt = $db->prepare("INSERT INTO comptes (idcomptes, nom, prenom, profil, password) VALUES (?, ?, ?, ?, ?)");
 $stmt->bind_param("sssis",$idcomptes, $nom, $prenom, $profil, $pass);
-
-
 $stmt->execute();
 $stmt->close();
 $db->close();
+trace("creation profil: id:".$idcomptes.", nom: ".$nom.", prenom: ".$prenom.", profil: ".$profil);
 //sleep(10);
 echo '<script type="text/javascript">window.alert("Veuillez noter le mot de passe temporaire:'.$password.'");</script>';
 //header("Location: router.php?direction=admin");
-echo '<script type="text/javascript">document.location.href="router.php?direction=admin"</script>';
+echo '<script type="text/javascript">document.location.href="../controller/router.php?direction=admin"</script>';
 
 }

@@ -1,7 +1,7 @@
 <?php
-require('isAdmin.php');
+require('../controller/isAllowed.php');
 include('navbar.php');
-include('get-list.php');
+require('../model/get-historique.php');
 ?>
 
 <!doctype html>
@@ -29,4 +29,3 @@ include('get-list.php');
     </style>
     <script src="js/bootstrap.js"></script>
 </head>
-

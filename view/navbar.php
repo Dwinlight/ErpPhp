@@ -79,41 +79,50 @@ padding-right: 5px;
 <div class="navbar">
 <?php
     if($_SESSION['profil']==1){
-        echo '<a href="router.php?direction=dashboard">Home</a>';
+        echo '<a href="../controller/router.php?direction=dashboard">Home</a>';
     }
     if($_SESSION['profil']==12 || $_SESSION['profil']==42){
-        echo '<a href="router.php?direction=admin">Home</a>';
+        echo '<a href="../controller/router.php?direction=admin">Home</a>';
     }
     ?>
     
     <?php
         
         if ($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12){
-            echo '<a href="router.php?direction=message">Poster un message</a>';
+            echo '<a href="../controller/router.php?direction=message">Poster un message</a>';
         }
         ?>
         <?php
         
         if ($_SESSION['profil'] == 42 || $_SESSION['profil'] == 12){
-            echo '<a href="router.php?direction=creation">Création</a>';
+            echo '<a href="../controller/router.php?direction=creation">Création</a>';
         }
         ?>
         <?php
         
         if ($_SESSION['profil'] == 42  || $_SESSION['profil'] == 12){
-            echo '<a href="router.php?direction=comptes">Liste des comptes</a>';
+            echo '<a href="../controller/router.php?direction=comptes">Liste des comptes</a>';
         }
         
-    echo '<a href="router.php?direction=modification&id=' .$_SESSION['username'].'">Paramètres</a>';
     
     ?>
+        <?php
+        
+        if ($_SESSION['profil'] == 42){
+            echo '<a href="../controller/router.php?direction=historique">Historique</a>';
+        }
+    
+        if ($_SESSION['profil'] == 42){
+            echo '<a href="../controller/router.php?direction=old">Messages supprimés</a>';
+        }
+        ?>
     <div class="dropdown" style="float:right">
     <button class="dropbtn"><?php echo $_SESSION['username']; ?> 
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
-      <?php echo '<a href="router.php?direction=modification&id=' .$_SESSION['username'].'">Profil</a>'; ?>
-      <a href="router.php?deconnexion=true">Déconnexion</a>
+      <?php echo '<a href="../controller/router.php?direction=modification&id=' .$_SESSION['username'].'">Profil</a>'; ?>
+      <a href="../controller/router.php?deconnexion=true">Déconnexion</a>
     </div>
   </div> 
   

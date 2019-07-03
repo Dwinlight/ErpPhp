@@ -33,17 +33,14 @@
 </head>
 
 <body>
-    <?php 
-if(!isset($_SESSION['profil'])){
-            session_destroy();
-            header('Location: connexion.php');
-        }
+<?php 
 require('dbConnection.php');
-$sql = "SELECT * FROM message ORDER BY number DESC";
+
+$sql = "SELECT * FROM message WHERE affichage = 1 ORDER BY number DESC";
 $result = $db->query($sql);
 
 
-if ($result->num_rows > 0) {
+if (isset($_SESSION["profil"]) && $result->num_rows > 0) {
     // output data of each row
     echo '<ul class="list-group" >';
     while($row = $result->fetch_assoc()) {
@@ -59,9 +56,6 @@ if ($result->num_rows > 0) {
         
         echo '</article>';
         
-        if ($_SESSION['profil'] == 12 || $_SESSION['profil'] == 42 ){
-            echo '<a href="delete-post.php?id='.$row["number"].'"><button type="button" class="btn btn-danger">Supprimer</button></a>';
-        }
         echo '</li>';
         
         
@@ -71,7 +65,8 @@ if ($result->num_rows > 0) {
     
 }
 ?>
-</body>
+    
+    </body>
 
 
 </html>

@@ -24,10 +24,10 @@ if(isset($_POST['username']) && isset($_POST['password']))
             $_SESSION['prenom'] = $reponse['prenom'];
             $_SESSION['profil'] = (int)$reponse['profil'];
             if($_SESSION['profil'] == 42 || $_SESSION['profil']==12){
-                header("Location: router.php?direction=admin");
+                header("Location: ../controller/router.php?direction=admin");
             }
             else{
-                header("Location: router.php?direction=dashboard");
+                header("Location: ../controller/router.php?direction=dashboard");
                 echo '<script> console.log("ici") </script>';
             }
         }
@@ -35,11 +35,11 @@ if(isset($_POST['username']) && isset($_POST['password']))
         {
             if($count > 1)
             {
-                header('Location: connexion.php?erreur=3');
+                header('Location: ../view/connexion.php?erreur=3');
             }
             else 
             {
-                header('Location: connexion.php?erreur=1'); // utilisateur ou mot de passe incorrect
+                header('Location: ../view/connexion.php?erreur=1'); // utilisateur ou mot de passe incorrect
             }
            
         }

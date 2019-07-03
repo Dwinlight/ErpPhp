@@ -12,7 +12,7 @@ include('navbar.php');
 <body>
 <h1>Welcome</h1>
 <?php
-    include('get-message.php');
+    include('../model/get-message.php');
     ?>
 
     </body>

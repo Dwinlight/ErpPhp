@@ -1,5 +1,5 @@
 <?php 
-session_start();
+require('../controller/isAllowed.php');
 require('dbConnection.php');
 if($_SESSION['modifyID'] != $_SESSION['username']) {
     if (isset($_SESSION['profil'])){
@@ -45,10 +45,10 @@ if ($db->query($sql) === TRUE) {
         $_SESSION['prenom'] = $prenom;
     }
     if($_SESSION['profil'] == 1){
-        echo '<script type="text/javascript">document.location.href="router.php?direction=dashboard"</script>';    
+        echo '<script type="text/javascript">document.location.href="../controller/router.php?direction=dashboard"</script>';    
     }
     else{
-        echo '<script type="text/javascript">document.location.href="router.php?direction=admin"</script>';
+        echo '<script type="text/javascript">document.location.href="../controller/router.php?direction=admin"</script>';
         
     }
     

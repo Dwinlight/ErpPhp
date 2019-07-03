@@ -11,25 +11,13 @@
     <?php
     session_start();
     include('navbar.php');
-    require('dbConnection.php');
-    $sql = "SELECT idcomptes FROM comptes";
-    $result = $db->query($sql);
-
-    if ($result->num_rows > 0) {
-    // output data of each row
-    
-        while($row = $result->fetch_assoc()) {
-        
-            echo '<script>users.push("'.$row["idcomptes"].'")</script>';
-             
-        }
-  
-    }   
+    require('../model/dbConnection.php');
+    require('../model/get-id.php'); 
     ?>
     <div id="container">
         <!-- zone de connexion -->
 
-        <form action="creation.php" method="POST">
+        <form action="../model/creation.php" method="POST">
             <h2>Création d'un compte utilisateur</h2>
 
             <label><b>Nom d'utilisateur</b></label>
