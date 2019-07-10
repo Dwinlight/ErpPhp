@@ -14,6 +14,12 @@
     {
         
         switch ($_GET['direction']) {
+            case 'new-mp':
+                header('Location: ../view/envoi-mp.php');
+                break;
+            case 'boite':
+                header('Location: ../view/messenger.php');
+                break;
             case 'dashboard':
                 if(isUser()){
                     header('Location: ../view/dashboard.php');

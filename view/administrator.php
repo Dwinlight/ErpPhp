@@ -2,12 +2,8 @@
     
 require('../controller/isAllowed.php');
     include('navbar.php');
+    echo '<h1>Bienvenue '.$_SESSION['prenom'].' '. $_SESSION['nom'].'</h1>';
     include('../model/get-message.php');
-    echo $_SESSION['nom'];
-    echo '</br>';
-    echo $_SESSION['prenom'];
-    echo '</br>';
-    echo $_SESSION['profil'];
-    
+
     
 

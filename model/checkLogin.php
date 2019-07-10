@@ -8,7 +8,7 @@ if(isset($_POST['username']) && isset($_POST['password']))
     // pour éliminer toute attaque de type injection SQL et XSS
     $username = mysqli_real_escape_string($db,htmlspecialchars($_POST['username'])); 
     $password = hash('sha384',mysqli_real_escape_string($db,htmlspecialchars($_POST['password'])));
-    echo $password;
+    
    
     if($username !== "" && $password !== "")
     {

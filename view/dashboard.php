@@ -10,8 +10,10 @@ include('navbar.php');
 </head>
 
 <body>
-<h1>Welcome</h1>
+
 <?php
+    
+    echo '<h1>Bienvenue '.$_SESSION['prenom'].' '. $_SESSION['nom'] . '</h1>';
     include('../model/get-message.php');
     ?>
 

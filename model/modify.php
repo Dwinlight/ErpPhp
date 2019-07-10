@@ -1,6 +1,7 @@
 <?php 
 require('../controller/isAllowed.php');
 require('dbConnection.php');
+include('trace.php');
 if($_SESSION['modifyID'] != $_SESSION['username']) {
     if (isset($_SESSION['profil'])){
         if($_SESSION['profil'] != 42 && $_SESSION['profil'] != 12){
@@ -14,7 +15,7 @@ if($_SESSION['modifyID'] != $_SESSION['username']) {
     }
 }
 
-    
+
 $nom = $_POST['nom'];
 $prenom = $_POST['prenom'];
 $password = hash('sha384', $_POST['password1']);
@@ -31,15 +32,26 @@ else{
     $profil = 12; 
     }
 }
+
+$typeTrace = "";
+if($_SESSION['modifyID'] == $_SESSION['username']){
+    $typeTrace = "Modification de son profil. Nouvelles informations: (nom,prenom,droits) = ".$nom." ,".$prenom." ,". $_POST['profil'];
+}
+else{
+    $typeTrace = "Modification du profil: ". $_SESSION['modifyID']. ". Nouvelles informations: (nom,prenom,droits) = ".$nom." ,".$prenom." ,". $_POST['profil'];
+}
+
+
 if($_POST['password1'] == ""){
  $sql = 'UPDATE comptes SET profil="'.$profil.'" , nom="'.$nom. '" , prenom="' .$prenom. '" WHERE idcomptes="' . $idcomptes .'"';   
 }
 else{
     
-
+$typeTrace = $typeTrace." avec modification du mot de passe";
 $sql = 'UPDATE comptes SET profil="'.$profil.'" , nom="'.$nom. '" , prenom="' .$prenom. '" , password= "'.$password. '" WHERE idcomptes="' . $idcomptes .'"';
 }
 if ($db->query($sql) === TRUE) {
+    trace($typeTrace);
     if($_SESSION['modifyID'] == $_SESSION['username']){
         $_SESSION['nom'] = $nom;
         $_SESSION['prenom'] = $prenom;

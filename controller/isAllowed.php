@@ -52,4 +52,14 @@ switch ($fileName) {
                     header('../view/connexion.php');
                 }
                 break;
+            case 'envoi-mp':
+                if ($profil =! 12 && $profil =!42 && $profil!=1){
+                    session_destroy();
+                    header('../view/connexion.php');
+                }
+        case 'messenger':
+        if ($profil =! 12 && $profil =!42 && $profil!=1){
+                    session_destroy();
+                    header('../view/connexion.php');
+                }
         }

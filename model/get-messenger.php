@@ -3,6 +3,10 @@
 <head>
     <meta charset="utf-8">
     <style type="text/css">
+        .aucun{
+            color: grey;
+            text-align: center;
+        }
         .list-group-item {
             
             background-color: white;
@@ -34,7 +38,7 @@
         function confirmation(number) {
             var r = confirm("Voulez-vous supprimer ce message ?");
             if (r == true) {
-                document.location.href="../model/delete-post.php?id="+number;
+                document.location.href="../model/delete-message-prive.php?id="+number;
                 
             }
         }
@@ -45,7 +49,7 @@
     <?php 
 require('dbConnection.php');
 
-$sql = "SELECT * FROM message WHERE affichage = 0 ORDER BY number DESC";
+$sql = "SELECT * FROM mp WHERE affichage = 0 && destinataire ='".$_SESSION['username']."' ORDER BY number DESC";
 $result = $db->query($sql);
 
 
@@ -65,9 +69,9 @@ if (isset($_SESSION["profil"]) && $result->num_rows > 0) {
         
         echo '</article>';
         
-        if ($_SESSION['profil'] == 12 || $_SESSION['profil'] == 42 ){
-            echo '<a><button type="button" onClick="confirmation('.$row["number"].');" class="btn btn-danger">Supprimer</button></a>';
-        }
+        
+        echo '<a><button type="button"  onClick="confirmation('.$row["number"].');" class="btn btn-danger">Supprimer</button></a>';
+        
         echo '</li>';
         
         
@@ -76,8 +80,11 @@ if (isset($_SESSION["profil"]) && $result->num_rows > 0) {
     echo '</ul>';
     
 }
+    
+if($result->num_rows == 0) {
+    echo '<h2 class="aucun"> Aucun nouveau message</h2>';
+}
 ?>
 </body>
-
 
 </html>
