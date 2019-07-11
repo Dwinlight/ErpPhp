@@ -41,9 +41,4 @@ function isUser()
             return false;
     }
 }
-echo '<script>console.log("'.isAdmin().'")</script>';
-
-echo '<script>console.log("'.isSuperAdmin().'")</script>';
-
-echo '<script>console.log("'.isUser().'")</script>';
 ?>

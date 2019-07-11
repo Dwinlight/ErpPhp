@@ -1,3 +1,4 @@
+<?php require('../controller/isAllowed.php');?>
 <html>
 
 <head>
@@ -9,7 +10,6 @@
 
 <body>
     <?php
-    session_start();
     include('navbar.php');
     require('../model/dbConnection.php');
     require('../model/get-id.php'); 
@@ -24,10 +24,8 @@
             <input type="text" placeholder="Entrer le nom d'utilisateur" id="username" name="username" required>
             <p style="color:red"; id="result"></p>
             <script>
-                console.log(users);
                 username.oninput = function() {
                     if (users.includes(username.value)){
-                        console.log('contient');
                         result.innerHTML = "Nom d'utilisateur non disponible";
                     }
                     else{
